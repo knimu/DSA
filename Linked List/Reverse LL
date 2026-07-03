@@ -1,0 +1,55 @@
+#Iterative solution
+
+# Approach:
+# -Traverse LL while maintaining prev pointer
+# -Store next node before modyfying links
+# -Reverse current node next pointer to point prev node
+# -Move both pointers forward untill null
+# -Return prev node,which is new head of list
+# Time Complexity: O(n)
+# Space Complexity: O(1)
+class Solution {
+public:
+    ListNode* reverseList(ListNode* head) {
+        ListNode* temp=head;
+        ListNode* prev=NULL;
+        while(temp!=NULL){
+            ListNode* front = temp->next;
+            temp->next=prev;
+            prev=temp;
+
+            temp=front;
+        }
+        return prev;
+        
+    }
+};
+
+#Recursive Solution
+
+# Approach:
+# -Traverse to last node using recursion
+# -During return phase, reverse each link by pointing the next node back to current node
+# -Break original link by seeting current nodes next pointer to null
+# -Return last node as newHead of reversed linked list
+
+# Time Complexity: O(n)    [Each node visited once]
+# Space Complexity: O(n)  [Due to recursion call stack]
+
+
+class Solution {
+public:
+    ListNode* reverseList(ListNode* head) {
+        if(head==NULL || head->next==NULL){
+            return head;
+        }
+        ListNode* newHead=reverseList(head->next);
+        ListNode* front=head->next;
+        front->next=head;
+        head->next=NULL;
+        return newHead;
+        
+    }
+};
+
+
