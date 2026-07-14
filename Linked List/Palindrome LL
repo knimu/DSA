@@ -1,0 +1,128 @@
+Stack Solution
+Approach:
+Create an empty stack to store the values of the linked list.
+Traverse the linked list and push every node's value onto the stack.
+Reset the pointer to the head of the linked list.
+Traverse the list again while popping elements from the stack.
+Compare the current node's value with the top of the stack.
+If any value does not match, return false.
+If all values match, return true, indicating that the linked list is a palindrome.
+
+Time Complexity: O(n)
+
+One traversal to push all elements into the stack.
+One traversal to compare elements.
+
+Space Complexity: O(n)
+
+The stack stores all n node values.
+class Solution {
+public:
+    bool isPalindrome(ListNode* head) {
+
+        // Stack to store node values
+        stack<int> st;
+
+        ListNode* temp = head;
+
+        // Push all node values into the stack
+        while(temp != NULL){
+            st.push(temp->val);
+            temp = temp->next;
+        }
+
+        // Compare stack values with linked list
+        temp = head;
+
+        while(temp != NULL){
+            if(temp->val != st.top()){
+                return false;
+            }
+            st.pop();
+            temp = temp->next;
+        }
+
+        return true;
+    }
+};
+
+
+Optimal Solution (Reverse Second Half)
+Approach:
+Handle the edge case where the linked list has 0 or 1 node, as it is always a palindrome.
+Use slow and fast pointers to find the middle of the linked list.
+Reverse the second half of the linked list.
+Compare the nodes from the first half and the reversed second half.
+If any pair of nodes has different values, restore the original linked list by reversing the second half again and return false.
+After successful comparison, reverse the second half again to restore the original linked list.
+Return true if all corresponding nodes match.
+
+Time Complexity: O(n)
+
+Finding the middle: O(n/2)
+Reversing the second half: O(n/2)
+Comparing both halves: O(n/2)
+Restoring the list: O(n/2)
+
+Overall: O(n)
+
+Space Complexity: O(1)
+
+The linked list is modified in-place without using any extra data structure.
+class Solution {
+
+private:
+    ListNode* reverse(ListNode* head){
+        ListNode* prev = nullptr;
+        ListNode* curr = head;
+
+        while(curr != nullptr){
+            ListNode* nextNode = curr->next;
+            curr->next = prev;
+            prev = curr;
+            curr = nextNode;
+        }
+
+        return prev;
+    }
+
+public:
+    bool isPalindrome(ListNode* head) {
+
+        if(head == nullptr || head->next == nullptr){
+            return true;
+        }
+
+        // Find the middle of the linked list
+        ListNode* slow = head;
+        ListNode* fast = head;
+
+        while(fast->next != nullptr && fast->next->next != nullptr){
+            slow = slow->next;
+            fast = fast->next->next;
+        }
+
+        // Reverse the second half
+        ListNode* newHead = reverse(slow->next);
+
+        // Compare both halves
+        ListNode* first = head;
+        ListNode* second = newHead;
+
+        while(second != nullptr){
+            if(first->val != second->val){
+                reverse(newHead);   // Restore original list
+                return false;
+            }
+
+            first = first->next;
+            second = second->next;
+        }
+
+        // Restore original list
+        reverse(newHead);
+
+        return true;
+    }
+};
+
