@@ -1,0 +1,72 @@
+Brute Force Solution (Count Nodes):
+
+Approach:
+Traverse the linked list and count the total number of nodes.
+Find the middle position using count / 2 + 1.
+Traverse the linked list again until the middle position.
+Return the middle node.
+
+Time Complexity: O(n)
+One traversal to count the nodes.
+One traversal to reach the middle node.
+Overall: O(n)
+
+Space Complexity: O(1)
+No extra data structure is used.
+
+Code: 
+class Solution {
+public:
+    // Function to get the middle node of linked list
+    ListNode* middleOfLinkedList(ListNode* head) {
+        ListNode* temp = head;
+        int count = 0;
+        
+        // Count the total nodes
+        while(temp != NULL) {
+            count++;
+            temp = temp->next;
+        }
+        
+        int midPosition = (count / 2) + 1;
+        
+        // Move to the middle node
+        ListNode* middleNode = head;
+        for(int i = 1; i < midPosition; i++) {
+            middleNode = middleNode->next;
+        }
+        
+        return middleNode;
+    }
+};
+
+Optimal Solution (Slow and Fast Pointer)
+Approach:
+Initialize two pointers, slow and fast, at the head.
+Move slow one step and fast two steps in each iteration.
+When fast reaches the end, slow will be at the middle node.
+Return the slow pointer.
+
+Time Complexity: O(n)
+Traverse the linked list once.
+
+Space Complexity: O(1)
+Only two pointers are used.
+
+Code:
+
+class Solution {
+public:
+    // Function to get the middle node of linked list
+    ListNode* middleOfLinkedList(ListNode* head) {
+        ListNode* slow = head;
+        ListNode* fast = head;
+
+        while (fast != NULL && fast->next != NULL) {
+            slow = slow->next;
+            fast = fast->next->next;
+        }
+
+        return slow;
+    }
+};
