@@ -1,0 +1,38 @@
+Hash Solution [Brute Force]
+Approach:
+Create temp to traverse 
+Create unordered set that is Hashing 
+[Hashing stores node and key that is frequesncy]
+Traverse the linked list
+If set that is nodeSet has temp value again then return true 
+If no return false 
+Insert temp in nodeSet and move temp to next 
+Why to insert - to check if is it in linked list or not 
+
+Time Complexity: O(N) 
+HashSet - O(1) ---[O(1) * O(N)]
+
+Space Complexity: O(N)
+As HashSet stores that visited to that node 
+
+Code:
+
+class Solution {
+public:
+    bool hasCycle(ListNode *head) {
+        ListNode* temp=head;
+        std::unordered_set<ListNode*> nodeSet;
+        while(temp!=NULL){
+            if(nodeSet.find(temp) != nodeSet.end()){
+                return true;
+            }
+            nodeSet.insert(temp);
+            temp=temp->next;
+        }
+        return false;
+
+    }
+};
+
+
+
