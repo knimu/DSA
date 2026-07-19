@@ -1,0 +1,164 @@
+Brute Force [Hash Map]
+Approach : 
+Create temp pointer pointing to head
+Create unordered_map to store visited or not 
+if again visited to same node then return temp
+Add it to map 
+If no loop present return null
+
+Time Complexity : O(N)
+Space Complexity : O(N)
+Additional space used by hash map
+
+Code : 
+
+class Solution {
+public:
+    ListNode *findStartingPoint(ListNode *head) {
+        ListNode* temp=head;
+        std::unordered_map<ListNode*, int> mp;
+        while(temp!=NULL){
+           if( mp.count(temp)!=0){
+            return temp;
+           }
+           mp[temp]=1;
+           temp=temp->next;
+        }
+        return NULL;
+
+    }
+};
+
+Brute Force [Hash Set]
+Approach:
+Create a temp pointer pointing to head.
+Create an unordered_set to store the visited nodes.
+Traverse the linked list.
+If the current node is already present in the set, return temp because it is the starting point of the loop.
+Otherwise, insert the current node into the set.
+Move temp to the next node.
+If no loop is present, return NULL.
+
+Time Complexity: O(N)
+
+Traverse the linked list once.
+unordered_set insertion and search take O(1) on average.
+
+Space Complexity: O(N)
+
+Additional space is used by the hash set to store all visited nodes.
+
+Code:
+
+class Solution {
+public:
+    ListNode *findStartingPoint(ListNode *head) {
+        ListNode* temp = head;
+        unordered_set<ListNode*> st;
+
+        while (temp != NULL) {
+            if (st.count(temp) != 0) {
+                return temp;
+            }
+
+            st.insert(temp);
+            temp = temp->next;
+        }
+
+        return NULL;
+    }
+};
+
+Floyd's Algorithm [Tortoise and Hare Algorithm]
+
+Approach:
+
+Create two pointers slow and fast pointing to head.
+slow moves one node at a time.
+fast moves two nodes at a time.
+Traverse the linked list until fast is not NULL and fast->next is not NULL.
+If slow and fast meet, it means a loop is present.
+Move slow back to head.
+Now move both slow and fast one node at a time.
+The node where they meet again is the starting point of the loop.
+Return that node.
+If no loop is present, return NULL.
+
+Time Complexity: O(N)
+
+Traverse the linked list once to detect the loop.
+Again move both pointers to find the starting point.
+Overall time complexity is O(N).
+
+Space Complexity: O(1)
+
+Only two pointers are used.
+No extra space is required.
+
+Code:
+
+class Solution {
+public:
+    ListNode *findStartingPoint(ListNode *head) {
+        ListNode* slow = head;
+        ListNode* fast = head;
+
+        while (fast != NULL && fast->next != NULL) {
+            slow = slow->next;
+            fast = fast->next->next;
+
+            if (slow == fast) {
+                slow = head;
+
+                while (slow != fast) {
+                    slow = slow->next;
+                    fast = fast->next;
+                }
+
+                return slow;
+            }
+        }
+
+        return NULL;
+    }
+};
+
+//IMPORTANT 
+
+Why do we move slow back to head?
+
+Suppose,
+
+L1 = Distance from head to the starting point of the loop.
+d = Distance from the starting point of the loop to the meeting point of slow and fast.
+LoopLength = Total number of nodes in the loop.
+
+When slow and fast meet,
+
+slow has travelled L1 + d.
+fast has travelled 2(L1 + d) because it moves twice as fast.
+
+Also,
+
+Fast Distance = Slow Distance + LoopLength
+
+So,
+
+2(L1 + d) = (L1 + d) + LoopLength
+L1 + d = LoopLength
+L1 = LoopLength - d
+
+This means:
+
+Distance from head to the starting point of the loop = L1.
+Distance from the meeting point to the starting point of the loop = LoopLength - d.
+
+Both distances are equal.
+
+So, after detecting the loop:
+
+Move slow back to head.
+Keep fast at the meeting point.
+Move both one node at a time.
+The node where they meet again is the starting point of the loop.
+ 
