@@ -1,13 +1,16 @@
 Hash Solution [Brute Force]
 Approach:
 Create temp to traverse 
-Create unordered set that is Hashing 
-[Hashing stores node and key that is frequesncy]
+Create an unordered_set<ListNode*> to store the addresses of visited nodes (hashing).
+[unordered_set stores only unique node pointers (addresses). It does not store frequencies.]
 Traverse the linked list
-If set that is nodeSet has temp value again then return true 
+If the current node is already present in the hash set, a cycle exists.
 If no return false 
 Insert temp in nodeSet and move temp to next 
 Why to insert - to check if is it in linked list or not 
+
+If there is a cycle, the fast pointer moves one extra node compared to the slow pointer in each iteration. Eventually, it catches up to the slow pointer inside the loop.
+
 
 Time Complexity: O(N) 
 HashSet - O(1) ---[O(1) * O(N)]
@@ -28,6 +31,44 @@ public:
             }
             nodeSet.insert(temp);
             temp=temp->next;
+        }
+        return false;
+
+    }
+};
+
+Floyd's Algorithm [Tortoise and Hare algo]
+Approach:
+Create two pointers : Slow and Fast 
+Slow moves one node at a time 
+Fast moves two node at a time 
+So treverse till fast is not equal to null or fast->next is null
+nd move slow and fast 
+if loop is there 
+slow and fast will be at a same point 
+then return true 
+or else return false 
+
+Time Complexity: O(N)
+At each step, decreased gap between slow and fast by one node
+
+Space Complexity: O(1)
+It utilizes constant amount of additional space 
+
+Code: 
+
+class Solution {
+public:
+    bool hasCycle(ListNode *head) {
+        ListNode* slow=head;
+        ListNode* fast=head;
+        while(fast!=NULL && fast->next!=NULL){
+            slow=slow->next;
+            fast=fast->next->next;
+        
+        if(slow==fast){
+            return true;
+        }
         }
         return false;
 
