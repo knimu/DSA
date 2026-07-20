@@ -1,0 +1,126 @@
+Problem
+
+Given the head of a linked list, reverse the nodes of the list k at a time.
+
+If the remaining nodes are less than k, leave them as they are.
+
+Optimal Approach :
+
+Approach :
+
+Create temp pointing to head.
+Create prevLast to store the last node of the previous reversed group.
+Find the kthNode from temp.
+If kthNode is NULL, connect the remaining nodes and stop.
+Store nextNode = kthNode->next.
+Break the list by
+kthNode->next = NULL;
+Reverse the current group.
+If it is the first group,
+Update head = kthNode.
+Otherwise,
+Connect previous group using
+prevLast->next = kthNode;
+Update
+prevLast = temp;
+temp = nextNode;
+Repeat until the list ends.
+Functions Used
+1. reverseLinkedList()
+
+Reverses a linked list using the 3-pointer approach.
+
+Returns the new head.
+
+2. getKthNode()
+
+Returns the kth node from the current node.
+
+If less than k nodes are present,
+
+returns NULL.
+
+Time Complexity
+O(N)
+
+Every node is visited only once.
+
+Space Complexity
+O(1)
+
+Only pointers are used.
+
+Variables to Remember 
+Variable	Meaning
+temp	First node of current group
+kthNode	Last node of current group
+nextNode	First node of next group
+prevLast	Last node of previous reversed group
+
+Why do we break the list?
+kthNode->next = NULL;
+
+Without breaking the list,
+
+reverseLinkedList() would reverse the entire remaining linked list instead of only k nodes.
+
+Why do we store nextNode?
+nextNode = kthNode->next;
+
+After breaking the list,
+
+we would lose the remaining nodes.
+
+So we store them before breaking.
+
+Why ???
+prevLast = temp;
+
+Before reversing,
+
+temp
+ ↓
+1 -> 2 -> 3
+
+After reversing,
+
+3 -> 2 -> 1
+          ↑
+        temp
+
+temp becomes the last node of the reversed group.
+
+We save it because the next reversed group will be connected after it.
+
+Mistakes to Avoid :
+Forgetting to check whether k nodes exist.
+Forgetting
+kthNode->next = NULL;
+Forgetting to save
+nextNode = kthNode->next;
+
+before breaking the list.
+
+Forgetting
+prevLast->next = kthNode;
+Forgetting
+temp = nextNode;
+In getKthNode(), forgetting to decrement k.
+
+Pattern to Remember :
+
+Every iteration follows the same 7 steps:
+
+Find kth node
+        ↓
+Save nextNode
+        ↓
+Break the list
+        ↓
+Reverse
+        ↓
+Connect previous group
+        ↓
+Update prevLast
+        ↓
+Move temp to next group
