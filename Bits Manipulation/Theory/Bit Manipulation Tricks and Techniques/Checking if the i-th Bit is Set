@@ -1,0 +1,107 @@
+2] Checking if the i-th Bit is Set :
+
+Approach 1 : Left Shift (Masking)
+
+Create a mask having only the i-th bit set.
+
+1 << i
+
+Then perform AND with the given number.
+
+If the result is non-zero, then the i-th bit is set.
+Otherwise, it is not set.
+
+Example:
+
+n = 13
+
+Binary:
+
+13 = 1101
+
+Check the 2nd bit
+
+Mask:
+
+1 << 2
+
+0001 -> 0100
+
+Perform AND
+
+1101
+0100
+----
+0100
+
+Result is non-zero.
+
+Hence, the 2nd bit is set.
+
+Approach 2 : Right Shift
+
+Shift the number i positions to the right.
+
+n >> i
+
+Now the required bit becomes the last bit.
+
+Perform AND with 1.
+
+If the result is 1, then the bit is set.
+Otherwise, it is not.
+
+Example:
+
+13 = 1101
+
+Shift by 2
+
+1101 >> 2
+
+0011
+
+Now check the last bit
+
+0011
+0001
+----
+0001
+
+Result is 1.
+
+Hence, the 2nd bit is set.
+
+Why AND?
+
+AND returns 1 only when both bits are 1.
+
+So,
+
+n & (1 << i)
+
+checks whether the i-th bit in n is 1 or not.
+
+Time Complexity: O(1)
+Only bitwise operations are performed.
+
+Space Complexity: O(1)
+No extra space is used.
+
+Code (Left Shift) :
+
+class Solution {
+public:
+    bool isBitSet(int n, int i) {
+        return (n & (1 << i)) != 0;
+    }
+};
+
+Code (Right Shift) :
+
+class Solution {
+public:
+    bool isBitSet(int n, int i) {
+        return ((n >> i) & 1) != 0;
+    }
+};
