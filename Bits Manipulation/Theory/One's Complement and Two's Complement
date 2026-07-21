@@ -1,0 +1,25 @@
+One's Complement :
+
+Obtained by flipping all the bits.
+ex]
+0000 1101 (binary of 13)
+1111 0010 (one's complement of 13)
+
+
+Two's Complement :
+
+Obtained by taking the one's complement of a number and then adding 1.
+ex] 
+Find the one's complement:
+
+  0000 1101 (binary of 13)
+  1111 0010 (one's complement of 13)
+
+Add 1 to the one's complement:
+
+1111 0010
++       1
+__________
+1111 0011
+
+so, Two's Complement -> 1111 0011
