@@ -1,0 +1,36 @@
+It consist of binary number manipulation, including binary number conversion, one's complement, and two's complement and many more concepts
+
+Binary Number Conversion
+
+Decimal to Binary Conversion:
+Method :
+Repeatedly divide by 2 and record the result 
+ex]
+Converting 13 to its binary equivalent
+Start with the decimal number 13.
+Divide the number by 2 and record the remainder.
+Repeat the division with the quotient until the number becomes 0.
+  13 / 2 = 6 remainder 1
+   6 / 2 = 3 remainder 0
+   3 / 2 = 1 remainder 1
+   1 / 2 = 0 remainder 1
+* Read from BOTTOM TO UP i.e 13 -> 1101
+
+Pseudo Code :
+
+string decimalToBinary(int n) {
+    result = ""
+    
+    while(n > 0) {
+        if(n % 2 == 1) result += '1'
+        else result += '0'
+        
+        n = n / 2
+    }
+    
+    reverse(result)
+    return result
+}
+
+Time Complexity: O(logN) Since the number is divided by 2 continuously.
+Space Complexity: O(logN) Storing the bits.
