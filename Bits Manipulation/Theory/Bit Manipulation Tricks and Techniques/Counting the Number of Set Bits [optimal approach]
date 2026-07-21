@@ -1,0 +1,158 @@
+Counting the Number of Set Bits :
+
+[Brian Kernighan's Algorithm]
+Approach:
+
+Instead of checking every bit, we can use:
+
+n & (n - 1)
+
+This operation removes the rightmost set bit (1) from the number.
+
+The idea:
+
+Keep removing the last set bit.
+Count how many times we perform this operation.
+The number of operations will be equal to the number of set bits.
+
+This is known as Brian Kernighan's Algorithm.
+
+Example:
+
+Given:
+
+n = 13
+
+Binary:
+
+13 = 1101
+Step 1:
+
+Remove the rightmost set bit:
+
+n     = 1101
+n - 1 = 1100
+
+Perform AND:
+
+  1101
+& 1100
+------
+  1100
+
+New value:
+
+1100
+
+Count:
+
+count = 1
+Step 2:
+
+Remove the rightmost set bit:
+
+n     = 1100
+n - 1 = 1011
+
+AND:
+
+  1100
+& 1011
+------
+  1000
+
+New value:
+
+1000
+
+Count:
+
+count = 2
+Step 3:
+
+Remove the rightmost set bit:
+
+n     = 1000
+n - 1 = 0111
+
+AND:
+
+  1000
+& 0111
+------
+  0000
+
+New value:
+
+0000
+
+Count:
+
+count = 3
+
+Now n = 0, so the loop stops.
+
+Answer:
+
+13 has 3 set bits.
+Why does n & (n-1) work?
+
+Example:
+
+n = 101100
+
+The rightmost set bit:
+
+101100
+    ↑
+
+Subtract 1:
+
+101011
+
+AND:
+
+  101100
+& 101011
+--------
+  101000
+
+Only the rightmost 1 is removed.
+
+Code:
+class Solution {
+public:
+    int countSetBits(int n) {
+        int count = 0;
+
+        while (n) {
+            n &= (n - 1);
+            count++;
+        }
+
+        return count;
+    }
+};
+Time Complexity: O(K)
+
+Where K = number of set bits (1s) in the number.
+
+Example:
+
+n = 10000000
+
+Only one 1 exists, so the loop runs once.
+
+Space Complexity: O(1)
+
+No extra space is used.
+
+💡 Shortcut to remember:
+
+n & (n-1) → removes the rightmost 1 bit
+
+Example:
+
+1101 → 1100 → 1000 → 0000
+
+Number of removals = Number of set bits.
