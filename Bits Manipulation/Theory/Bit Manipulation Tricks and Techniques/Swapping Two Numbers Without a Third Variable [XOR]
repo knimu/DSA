@@ -1,0 +1,88 @@
+1] Swapping Two Numbers Without a Third Variable [XOR]
+Approach:
+
+XOR has a property:
+
+A ^ A = 0
+A ^ 0 = A
+
+Using these properties, we can swap two numbers without using any extra variable.
+
+Take:
+
+A = 5
+B = 6
+
+Binary:
+
+5 = 101
+6 = 110
+
+Step 1
+
+A = A ^ B;
+101
+110
+---
+011 = 3
+
+A = 3
+B = 6
+
+Step 2
+
+B = A ^ B;
+011
+110
+---
+101 = 5
+
+A = 3
+B = 5
+
+Step 3
+
+A = A ^ B;
+011
+101
+---
+110 = 6
+
+A = 6
+B = 5
+
+Numbers are swapped.
+
+Why does it work?
+
+After the first XOR,
+
+A = Original A ^ Original B
+
+When we XOR it again with Original B, we get
+
+(A ^ B) ^ B
+= A ^ (B ^ B)
+= A ^ 0
+= A
+
+Similarly,
+
+(A ^ B) ^ A
+= B
+
+Hence both numbers get swapped.
+
+Time Complexity: O(1)
+Only three XOR operations are performed.
+
+Space Complexity: O(1)
+No extra variable is used.
+
+Code:
+int A = 5;
+int B = 6;
+
+A = A ^ B;
+B = A ^ B;
+A = A ^ B;
