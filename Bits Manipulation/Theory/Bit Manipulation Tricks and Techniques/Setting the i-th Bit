@@ -1,0 +1,82 @@
+Setting the i-th Bit :
+
+Approach:
+
+To set the i-th bit to 1, use the OR (|) operator.
+
+Create a mask having only the i-th bit set.
+
+1 << i
+
+Then perform OR with the given number.
+
+If the bit is already 1, it remains 1.
+If the bit is 0, it becomes 1.
+
+Example:
+
+n = 9
+
+Binary:
+
+9 = 1001
+
+Set the 2nd bit
+
+Mask:
+
+1 << 2
+
+0001 -> 0100
+
+Perform OR
+
+1001
+0100
+----
+1101
+
+Result:
+
+1101 = 13
+
+Hence, after setting the 2nd bit, the answer is 13.
+
+Why OR?
+
+OR returns 1 if at least one of the bits is 1.
+
+Truth Table:
+
+A	B	A | B
+0	0	0
+0	1	1
+1	0	1
+1	1	1
+
+So,
+
+n | (1 << i)
+
+ensures that the i-th bit becomes 1, while all other bits remain unchanged.
+
+Time Complexity: O(1)
+Only one left shift and one OR operation are performed.
+
+Space Complexity: O(1)
+No extra space is used.
+
+Code:
+class Solution {
+public:
+    int setBit(int n, int i) {
+        return n | (1 << i);
+    }
+};
+
+💡 Shortcut to remember:
+
+Check Bit → &
+Set Bit → |
+Toggle Bit → ^
+Clear Bit → & ~
