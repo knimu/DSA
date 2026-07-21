@@ -1,0 +1,88 @@
+Clearing the i-th Bit :
+
+Approach:
+
+To clear the i-th bit (make it 0), use the AND (&) operator with the complement of the bit mask.
+
+First, create a mask having only the i-th bit set.
+
+1 << i
+
+Then take its complement using ~.
+
+~(1 << i)
+
+Now perform AND with the given number.
+
+If the bit is already 0, it remains 0.
+If the bit is 1, it becomes 0.
+
+Example:
+
+n = 13
+
+Binary:
+
+13 = 1101
+
+Clear the 2nd bit
+
+Mask:
+
+1 << 2
+
+0001
+↓
+
+0100
+
+Complement of Mask:
+
+~0100
+
+1011
+
+Perform AND
+
+1101
+1011
+----
+1001
+
+Result:
+
+1001 = 9
+
+Hence, after clearing the 2nd bit, the answer is 9.
+
+Why AND with Complement?
+
+The complement mask has 0 at the i-th bit and 1 everywhere else.
+
+Example:
+
+Mask            = 0100
+Complement Mask = 1011
+
+When we perform
+
+n & ~(1 << i)
+The i-th bit becomes 0 because 1 & 0 = 0.
+All other bits remain unchanged because x & 1 = x.
+Time Complexity: O(1)
+
+Only one left shift, one complement, and one AND operation are performed.
+
+Space Complexity: O(1)
+
+No extra space is used.
+
+Code:
+
+class Solution {
+public:
+    int clearBit(int n, int i) {
+        return n & ~(1 << i);
+    }
+};
+
