@@ -1,0 +1,107 @@
+Removing the Last Set Bit :
+
+Approach:
+
+To remove the rightmost set bit (rightmost 1) of a number, use:
+
+n & (n - 1)
+Key Idea:
+
+When we subtract 1 from a number:
+
+The rightmost set bit (1) becomes 0.
+All bits after it (which are 0) become 1.
+Other bits remain the same.
+
+After performing AND (&), the rightmost set bit gets removed.
+
+Example:
+n = 13
+
+Binary:
+
+13 = 1101
+
+Subtract 1:
+
+13 - 1 = 12
+
+1101
+-  1
+----
+1100
+
+Now perform AND:
+
+  1101
+& 1100
+------
+  1100
+
+Result:
+
+1100 = 12
+
+The last set bit (1) has been removed.
+
+Why does n & (n-1) work?
+
+Example:
+
+n = 101100
+
+Here the rightmost set bit is:
+
+101100
+   ↑
+
+Now:
+
+n - 1 = 101011
+
+AND operation:
+
+  101100
+& 101011
+--------
+  101000
+
+The rightmost 1 is removed.
+
+Common Use:
+This operation is mainly used in * Brian Kernighan's Algorithm * to count set bits.
+
+Example:
+
+while(n) {
+    n = n & (n - 1);
+    count++;
+}
+
+Each iteration removes one set bit.
+
+Time Complexity: O(1)
+Only subtraction and one AND operation are performed.
+
+Space Complexity: O(1)
+No extra space is used.
+
+Code:
+class Solution {
+public:
+    int removeLastSetBit(int n) {
+        return n & (n - 1);
+    }
+};
+
+💡 Shortcut to remember:
+
+n & (n-1) → removes the rightmost 1 bit
+
+Example:
+
+1101 → 1100
+1100 → 1000
+1000 → 0000
+
+Each operation removes one set bit.
