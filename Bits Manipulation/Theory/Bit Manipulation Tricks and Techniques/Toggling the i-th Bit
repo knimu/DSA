@@ -1,0 +1,77 @@
+Toggling the i-th Bit :
+
+Approach:
+
+To toggle the i-th bit, use the XOR (^) operator.
+
+Create a mask having only the i-th bit set.
+
+1 << i
+
+Then perform XOR with the given number.
+
+If the bit is 0, it becomes 1.
+If the bit is 1, it becomes 0.
+
+Example:
+
+n = 13
+
+Binary:
+
+13 = 1101
+
+Toggle the 1st bit
+
+Mask:
+
+1 << 1
+
+0001 -> 0010
+
+Perform XOR
+
+1101
+0010
+----
+1111
+
+Result:
+
+1111 = 15
+
+Hence, after toggling the 1st bit, the answer is 15.
+
+Why XOR?
+
+XOR returns 1 only when the bits are different.
+
+Truth Table:
+
+A	B	A ^ B
+0	0	0
+0	1	1
+1	0	1
+1	1	0
+
+So,
+
+n ^ (1 << i)
+If the i-th bit is 0, XOR with 1 changes it to 1.
+If the i-th bit is 1, XOR with 1 changes it to 0.
+All other bits remain unchanged because they are XORed with 0.
+
+Time Complexity: O(1)
+Only one left shift and one XOR operation are performed.
+
+Space Complexity: O(1)
+No extra space is used.
+
+Code:
+
+class Solution {
+public:
+    int toggleBit(int n, int i) {
+        return n ^ (1 << i);
+    }
+};
