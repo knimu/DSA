@@ -1,0 +1,134 @@
+Counting the Number of Set Bits :
+
+Approach:
+
+To count the number of set bits (1s) in a number, we can check each bit one by one using: n & 1
+
+The idea is:
+n & 1 checks the last bit of the number.
+If the result is 1, the last bit is set, so increase the count.
+Right shift the number by 1 to check the next bit.
+
+Example:
+Given:
+n = 13
+Binary:
+13 = 1101
+Now check each bit.
+
+Step 1:
+
+Check last bit:
+
+1101
+0001
+----
+0001
+
+Result:1
+
+Count: count = 1
+
+Right shift:
+
+1101 >> 1
+0110
+Step 2:
+Check last bit:
+
+0110
+0001
+----
+0000
+
+Result:0
+Count remains: count = 1
+
+Right shift:
+
+0110 >> 1
+0011
+Step 3:
+
+Check last bit:
+
+0011
+0001
+----
+0001
+
+Result:1
+
+Count:count = 2
+
+Right shift:
+
+0011 >> 1
+0001
+Step 4:
+
+Check last bit:
+
+0001
+0001
+----
+0001
+
+Result:1
+
+Count:count = 3
+
+Right shift:
+
+0001 >> 1
+
+0000
+
+Loop stops.
+
+Answer:
+13 has 3 set bits.
+Why Right Shift?
+
+Right shift (>>) removes the last bit after checking it.
+
+Example:
+
+1101 >> 1 = 0110
+0110 >> 1 = 0011
+0011 >> 1 = 0001
+0001 >> 1 = 0000
+
+The loop continues until all bits are checked.
+
+Code:
+
+class Solution {
+public:
+    int countSetBits(int n) {
+        int count = 0;
+
+        while (n > 0) {
+            count += (n & 1);
+            n >>= 1;
+        }
+
+        return count;
+    }
+};
+
+Time Complexity: O(log N)
+Each iteration checks one bit.
+For a number N, the number of bits is approximately log₂(N).
+
+Space Complexity: O(1)
+No extra space is used.
+
+💡 Shortcut to remember:
+
+n & 1 → Check the last bit
+n >> 1 → Move to the next bit
+
+Process:
+
+Check → Count → Shift → Repeat
