@@ -1,0 +1,33 @@
+Binary to Decimal Conversion
+
+reversing the process
+
+Example:
+Converting 1101 to its decimal equivalent
+Start from the rightmost bit (least significant bit) and move to the left.
+Each bit is multiplied by 2 raised to the power of its position index (starting from 0).
+  1 * 2^0 = 1
+  0 * 2^1 = 0
+  1 * 2^2 = 4
+  1 * 2^3 = 8
+Then sum the values i.e 1 + 0 + 4 + 8 = 13.
+
+Pseudo Code:
+
+int binaryToDecimal(string str) {
+    len = str.length
+    val = 1, num = 0
+    
+    for(i from len-1 to 0) {
+        if(str[i] == '1') {
+            num = num + val
+        }
+        
+        val = val * 2
+    }
+    
+    return num
+}
+
+Time Complexity: O(n) Traversing every bit in the string.
+Space Complexity: O(1) 
