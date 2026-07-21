@@ -1,0 +1,103 @@
+Checking if a Number is a Power of 2 :
+
+Approach:
+
+A number is a power of 2 if it has only one set bit (1) in its binary representation.
+
+Examples:
+2  = 0010
+4  = 0100
+8  = 1000
+16 = 10000
+All these numbers contain only one 1 bit.
+
+Key Idea:
+Use:
+n & (n - 1)
+This operation removes the rightmost set bit.
+For a power of 2 number, there is only one set bit. After removing it, the result becomes: 0
+Therefore:
+(n & (n - 1)) == 0
+means the number is a power of 2.
+
+Example:
+Check:
+
+n = 16
+
+Binary:
+16 = 10000
+
+Subtract 1:
+16 - 1 = 15
+
+15 = 01111
+
+Perform AND:
+  10000
+& 01111
+-------
+  00000
+
+Result: 0
+Hence, 16 is a power of 2.
+
+Example: Not a Power of 2
+Check:
+n = 10
+Binary:
+10 = 1010
+
+Subtract 1:
+9 = 1001
+
+AND:
+  1010
+& 1001
+------
+  1000
+
+Result is not zero.
+Therefore, 10 is not a power of 2.
+
+Why n > 0?
+
+Because:
+
+0 & (0-1) = 0
+would incorrectly satisfy the condition.
+Also, negative numbers are not considered powers of 2.
+
+So we add:
+n > 0
+
+Time Complexity: O(1)
+Only bitwise operations are performed.
+
+Space Complexity: O(1)
+No extra space is used.
+
+Code:
+
+class Solution {
+public:
+    bool isPowerOfTwo(int n) {
+        return (n > 0) && ((n & (n - 1)) == 0);
+    }
+};
+
+💡 Shortcut to remember:
+
+Power of 2 → Only one set bit
+
+n        binary
+1        0001
+2        0010
+4        0100
+8        1000
+
+n & (n-1) = 0
+
+So the rule is:
+
+(n & (n-1)) == 0  → Power of 2
