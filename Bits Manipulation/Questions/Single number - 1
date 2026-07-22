@@ -38,3 +38,56 @@ public:
         return -1;
     }
 };
+
+
+Optimal Solution (Using XOR) :
+
+Approach:
+
+Initialize a variable sol with 0.
+Traverse the array one by one.
+Perform XOR (^) of sol with each element.
+Since the same numbers cancel each other (a ^ a = 0), only the element that appears once remains.
+Return sol.
+
+Time Complexity: O(n) 
+Traverse the array only once.
+Overall: O(n)
+
+Space Complexity: O(1) 
+No extra data structure is used.
+Only one variable (sol) is used.
+
+Code:
+
+class Solution {    
+public:    
+    int singleNumber(vector<int>& nums) {
+        int sol = 0;
+
+        // Perform XOR with every element
+        for (int i = 0; i < nums.size(); i++) {
+            sol ^= nums[i];
+        }
+
+        return sol;
+    }
+};
+
+Why XOR Works?
+a ^ a = 0 (same numbers cancel each other)
+a ^ 0 = a (XOR with 0 gives the same number)
+XOR is commutative and associative, so the order doesn't matter.
+
+Example:
+
+nums = [4, 1, 2, 1, 2]
+
+sol = 0
+0 ^ 4 = 4
+4 ^ 1 = 5
+5 ^ 2 = 7
+7 ^ 1 = 6
+6 ^ 2 = 4
+
+Answer = 4
