@@ -1,0 +1,39 @@
+Single Number 2 
+
+Better Solution (Using Hash Map)
+Approach:
+Create a hash map to store the frequency of each element.
+Traverse the array and increase the count of every number.
+Traverse the hash map.
+If any element has frequency 1, return that element.
+If no such element is found, return -1.
+Time Complexity: O(n)
+One traversal to store frequencies.
+One traversal of the hash map.
+Overall: O(n)
+Space Complexity: O(n)
+Hash map stores the frequency of all elements.
+Code:
+class Solution {
+public:
+    // Function to find the single number
+    int singleNumber(vector<int>& nums) {
+
+        // Hash map to store frequency
+        unordered_map<int, int> mpp;
+
+        // Store frequency of each element
+        for(int i = 0; i < nums.size(); i++) {
+            mpp[nums[i]]++;
+        }
+
+        // Find the element with frequency 1
+        for(auto it : mpp) {
+            if(it.second == 1) {
+                return it.first;
+            }
+        }
+
+        return -1;
+    }
+};
