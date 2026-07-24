@@ -1,0 +1,42 @@
+Single Number III :
+
+Better Solution (Using Hash Map) :
+
+Approach:
+Create a hash map to store the frequency of each element.
+Traverse the array and increase the frequency of every number.
+Traverse the hash map.
+If an element has frequency 1, add it to the answer array.
+Sort the answer array and return it.
+
+Time Complexity: O(n)
+One traversal to store frequencies.
+One traversal of the hash map.
+Sorting the answer array of size 2 takes O(1).
+Overall: O(n).
+
+Space Complexity: O(n)
+Hash map stores the frequency of all elements.
+
+Code:
+
+class Solution{	
+	public:		
+		vector<int> singleNumber(vector<int>& nums){
+			//your code goes here
+            vector<int> ans;
+            unordered_map <int,int> mpp;
+            for(int i=0;i<nums.size();i++){
+                mpp[nums[i]]++;
+            }
+            for(auto it : mpp){
+                if(it.second==1){
+                    ans.push_back(it.first);
+                }
+            }
+            sort(ans.begin(),ans.end());
+            return ans;
+		}
+};
+
+
