@@ -1,0 +1,65 @@
+Remove Duplicates from Sorted List (LeetCode 83)
+
+Optimal Solution
+
+Approach:
+Since the linked list is sorted, all duplicate values will be next to each other.
+Traverse the list using a pointer temp.
+For every node:
+Store the next node in nextNode.
+Check if nextNode has the same value as temp.
+If duplicates are found, keep moving nextNode until a different value is found.
+Connect temp->next with the next unique node.
+Move temp forward and repeat.
+
+Idea: Keep the first occurrence of every value and remove all repeated occurrences after it.
+
+Time Complexity: O(n)
+Every node is visited once while traversing.
+
+Space Complexity: O(1)
+No extra data structure is used.
+
+Code : 
+
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) {}
+ *     ListNode(int x) : val(x), next(nullptr) {}
+ *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+ * };
+ */
+
+class Solution {
+public:
+    ListNode* deleteDuplicates(ListNode* head) {
+
+        ListNode* temp = head;
+
+        while (temp != nullptr && temp->next != nullptr) {
+
+            // Start checking from next node
+            ListNode* nextNode = temp->next;
+
+            // Skip all duplicate nodes
+            while (nextNode != nullptr && nextNode->val == temp->val) {
+
+                ListNode* dupl = nextNode;
+                nextNode = nextNode->next;
+
+                delete dupl;
+            }
+
+            // Connect current node with next unique node
+            temp->next = nextNode;
+
+            // Move to next unique node
+            temp = temp->next;
+        }
+
+        return head;
+    }
+};
