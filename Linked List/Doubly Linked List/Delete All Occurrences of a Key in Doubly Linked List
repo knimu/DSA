@@ -1,0 +1,74 @@
+Delete All Occurrences of a Key in Doubly Linked List
+
+Optimal Solution
+
+Approach:
+Traverse the doubly linked list using a pointer temp.
+For every node, check if its value is equal to the target value.
+If the current node contains the target:
+Store its previous node and next node.
+If it is the head node, update the head.
+Connect the previous node with the next node.
+Update the prev pointer of the next node.
+Delete the current node.
+Move temp to the next node.
+If the current node is not the target, simply move to the next node.
+
+Idea: Whenever we find the target value, remove that node and reconnect its neighbours.
+
+Time Complexity: O(n)
+We traverse the linked list only once.
+
+Space Complexity: O(1)
+No extra space is used.
+
+Code :
+
+class Solution {
+public:
+    ListNode* deleteAllOccurrences(ListNode* head, int target) {
+
+        ListNode* temp = head;
+
+        while (temp != NULL) {
+
+            if (temp->val == target) {
+
+                // Store previous and next nodes
+                ListNode* prevNode = temp->prev;
+                ListNode* nextNode = temp->next;
+
+                // If deleting the head node
+                if (temp == head) {
+                    head = nextNode;
+                }
+
+                // Connect previous node with next node
+                if (prevNode != NULL) {
+                    prevNode->next = nextNode;
+                }
+
+                // Update previous pointer of next node
+                if (nextNode != NULL) {
+                    nextNode->prev = prevNode;
+                }
+
+                // Delete current node
+                delete temp;
+
+                // Move to next node
+                temp = nextNode;
+
+            } 
+            else {
+                temp = temp->next;
+            }
+        }
+
+        return head;
+    }
+};
+
+
+*
+"Save neighbours → connect neighbours → delete node → move ahead."
