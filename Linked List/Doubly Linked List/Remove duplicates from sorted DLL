@@ -1,0 +1,64 @@
+Remove Duplicates from Sorted Doubly Linked List
+
+Optimal Solution
+
+Approach:
+Since the doubly linked list is sorted, duplicate values always appear together.
+Traverse the linked list using a pointer temp.
+For every node, check if the next node has the same value.
+If duplicate nodes are found, keep moving nextNode until a different value is found.
+Connect temp->next to this new node.
+Also update the prev pointer of the new node to point back to temp.
+Continue traversing until the end of the list.
+
+Idea: Keep the first occurrence of every value and remove all the remaining duplicates.
+
+Time Complexity: O(n)
+Every node is visited only once.
+
+Space Complexity: O(1)
+No extra data structure is used.
+
+Code :
+
+class Solution {
+public:
+    ListNode* removeDuplicates(ListNode* head) {
+
+        ListNode* temp = head;
+
+        while (temp != NULL && temp->next != NULL) {
+
+            // Start checking from the next node
+            ListNode* nextNode = temp->next;
+
+            // Skip all duplicate nodes
+            while (nextNode != NULL && nextNode->val == temp->val) {
+                ListNode* duplicate = nextNode;
+                nextNode = nextNode->next;
+                delete duplicate;
+            }
+
+            // Connect current node with the next different node
+            temp->next = nextNode;
+
+            // Update previous pointer
+            if (nextNode != NULL) {
+                nextNode->prev = temp;
+            }
+
+            // Move to the next unique node
+            temp = temp->next;
+        }
+
+        return head;
+    }
+};
+
+*
+- temp → Current unique node.
+- nextNode → Searches for the next different value.
+- Skip all duplicate nodes.
+- Connect temp with the next unique node.
+- Update both next and prev pointers.
+- Move temp forward.
