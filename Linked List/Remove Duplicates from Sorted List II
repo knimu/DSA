@@ -1,0 +1,113 @@
+Remove Duplicates from Sorted List II (LeetCode 82)
+
+Optimal Solution
+
+Approach:
+Since the linked list is sorted, duplicate values always come together.
+Traverse the list using temp.
+Keep a pointer prev to store the last node that is confirmed unique.
+For every node:
+Check if the next node has the same value.
+If duplicates are found:
+Store the duplicate value.
+Skip all nodes having that value using nextNode.
+Delete the first node of the duplicate sequence also.
+Connect prev with the next unique node.
+If duplicates start from the head, update head.
+If no duplicate is found:
+Move prev and temp forward.
+
+Idea: If a value appears more than once, remove all nodes having that value.
+
+Time Complexity: O(n)
+Every node is visited only once.
+
+Space Complexity: O(1)
+No extra data structure is used.
+
+Code :
+
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) {}
+ *     ListNode(int x) : val(x), next(nullptr) {}
+ *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+ * };
+ */
+
+class Solution {
+public:
+    ListNode* deleteDuplicates(ListNode* head) {
+
+        ListNode* temp = head;
+        ListNode* prev = nullptr;
+
+        while (temp != nullptr) {
+
+            ListNode* nextNode = temp->next;
+
+            // Duplicate sequence found
+            if (nextNode != nullptr && temp->val == nextNode->val) {
+
+                int duplValue = temp->val;
+
+                // Skip all duplicate nodes
+                while (nextNode != nullptr && nextNode->val == duplValue) {
+
+                    ListNode* dupl = nextNode;
+                    nextNode = nextNode->next;
+
+                    delete dupl;
+                }
+
+                // Delete the first node of duplicate sequence
+                delete temp;
+
+
+                // If duplicate sequence starts from head
+                if (prev == nullptr) {
+                    head = nextNode;
+                }
+                else {
+                    prev->next = nextNode;
+                }
+
+                // Move to next unique node
+                temp = nextNode;
+            }
+
+            else {
+
+                // Current node is unique
+                prev = temp;
+                temp = temp->next;
+            }
+        }
+
+        return head;
+    }
+};
+
+*
+Easy Way to Remember 🚀
+
+For LeetCode 82:
+
+Find duplicate sequence.
+Save duplicate value.
+Skip all nodes with that value.
+Remove the first node too.
+Connect previous unique node to the next unique node.
+
+Important pointers:
+
+temp → current node being checked.
+nextNode → searches where duplicates end.
+prev → connects the remaining list after deletion.
+
+One-line memory trick:
+
+"If a value repeats, remove the whole group; otherwise move forward."
