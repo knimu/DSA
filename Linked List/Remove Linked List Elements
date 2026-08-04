@@ -1,0 +1,75 @@
+Remove Linked List Elements (LeetCode 203)
+
+Optimal Solution
+
+Approach:
+Traverse the linked list using a pointer temp.
+Keep another pointer prev to store the previous node.
+If the current node value is equal to val:
+Store the next node.
+If the node is the head node, update head.
+Otherwise, connect prev->next to the next node.
+Delete the current node.
+Move temp to the next node.
+If the current node value is not equal to val:
+Move both prev and temp forward.
+
+Idea: Whenever the target value is found, remove that node and reconnect the remaining list.
+
+Time Complexity: O(n)
+We traverse the linked list only once.
+
+Space Complexity: O(1)
+No extra data structure is used.
+
+Code : 
+
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) {}
+ *     ListNode(int x) : val(x), next(nullptr) {}
+ *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+ * };
+ */
+
+class Solution {
+public:
+    ListNode* removeElements(ListNode* head, int val) {
+
+        ListNode* temp = head;
+        ListNode* prev = nullptr;
+
+        while (temp != nullptr) {
+
+            // If current node contains target value
+            if (temp->val == val) {
+
+                ListNode* nextNode = temp->next;
+
+                // If target node is the head
+                if (prev == nullptr) {
+                    head = nextNode;
+                }
+                else {
+                    prev->next = nextNode;
+                }
+
+                delete temp;
+
+                // Move to next node
+                temp = nextNode;
+            }
+
+            else {
+                // Move both pointers
+                prev = temp;
+                temp = temp->next;
+            }
+        }
+
+        return head;
+    }
+};
