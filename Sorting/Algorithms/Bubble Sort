@@ -1,0 +1,52 @@
+Bubble Sort 
+
+Optimal Solution
+
+Approach:
+Traverse the array from the end towards the beginning.
+In each pass, compare every pair of adjacent elements.
+If the current element is greater than the next element, swap them.
+After one complete pass, the largest element moves to its correct position at the end.
+Use a didSwap flag to check whether any swaps occurred during the current pass.
+If no swaps are made, the array is already sorted, so stop early.
+
+Idea: Repeatedly swap adjacent elements so that the largest unsorted element "bubbles up" to its correct position after every pass.
+
+Time Complexity:
+Best Case: O(n) (when the array is already sorted due to early stopping)
+Average Case: O(n²)
+Worst Case: O(n²) (when the array is sorted in reverse order)
+
+Space Complexity: O(1)
+Sorting is performed in-place without using any extra data structure.
+
+Code:
+
+class Solution {
+public:
+    vector<int> bubbleSort(vector<int>& nums) {
+        int n = nums.size();
+
+        for (int i = n - 1; i >= 0; i--) {
+            bool didSwap = false;
+
+            for (int j = 0; j <= i - 1; j++) {
+                if (nums[j] > nums[j + 1]) {
+                    swap(nums[j], nums[j + 1]);
+                    didSwap = true;
+                }
+            }
+
+            if (!didSwap) {
+                break;
+            }
+        }
+
+        return nums;
+    }
+};
+
+
+Key Takeaway:
+
+"Compare adjacent elements → Swap if needed → Largest element bubbles to the end → Stop early if no swaps occur."
