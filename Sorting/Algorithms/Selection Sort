@@ -1,0 +1,51 @@
+Selection Sort
+
+Optimal Solution
+
+Approach:
+Traverse the array from the first element to the second last element.
+Assume the current index is the minimum element.
+Search the remaining unsorted part of the array to find the actual minimum element.
+If a smaller element is found, update the minimum index.
+After the inner loop, swap the current element with the minimum element (only if they are different).
+Repeat this process until the array is completely sorted.
+
+Idea: In each iteration, place the smallest element from the unsorted portion at its correct position in the sorted portion.
+
+Time Complexity: O(n²)
+For each element, we scan the remaining unsorted part of the array.
+Total comparisons = (n−1) + (n−2) + ... + 1 = O(n²).
+
+Space Complexity: O(1)
+The sorting is performed in-place without using any extra data structure.
+
+Code:
+
+class Solution {
+public:
+    vector<int> selectionSort(vector<int>& nums) {
+
+        for (int i = 0; i < nums.size() - 1; i++) {
+
+            int min = i;
+
+            for (int j = i + 1; j < nums.size(); j++) {
+
+                if (nums[j] < nums[min]) {
+                    min = j;
+                }
+            }
+
+            if (min != i) {
+                swap(nums[min], nums[i]);
+            }
+        }
+
+        return nums;
+    }
+};
+
+
+Key Takeaway:
+
+"Find the minimum element → Swap it with the current position → Grow the sorted portion one element at a time."
