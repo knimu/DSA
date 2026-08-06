@@ -1,0 +1,82 @@
+Quick Sort
+
+Optimal Solution
+
+Approach:
+Choose a pivot element. In this implementation, a random pivot is selected to reduce the chances of worst-case performance.
+Place the pivot at the beginning of the current subarray.
+Partition the array such that:
+All elements less than or equal to the pivot are placed on its left.
+All elements greater than the pivot are placed on its right.
+After partitioning, the pivot reaches its correct sorted position.
+Recursively apply the same process to the left and right subarrays.
+Continue until each subarray contains zero or one element.
+
+Idea: Use the Divide and Conquer approach by selecting a pivot, partitioning the array around it, and recursively sorting the resulting subarrays.
+
+Time Complexity:
+Best Case: O(n log n)
+Average Case: O(n log n)
+Worst Case: O(n²) (highly unbalanced partitions, though random pivot selection greatly reduces the probability)
+
+Space Complexity:
+Average Case: O(log n) (recursive call stack)
+Worst Case: O(n) (when partitions are extremely unbalanced)
+
+Code:
+
+class Solution {
+public:
+    int partition(vector<int>& arr, int low, int high) {
+
+        int randomIndex = low + rand() % (high - low + 1);
+        swap(arr[low], arr[randomIndex]);
+
+        int pivot = arr[low];
+        int i = low;
+        int j = high;
+
+        while (i < j) {
+
+            while (i <= high - 1 && arr[i] <= pivot) {
+                i++;
+            }
+
+            while (j >= low + 1 && arr[j] > pivot) {
+                j--;
+            }
+
+            if (i < j) {
+                swap(arr[i], arr[j]);
+            }
+        }
+
+        swap(arr[low], arr[j]);
+        return j;
+    }
+
+    void qs(vector<int>& arr, int low, int high) {
+
+        if (low < high) {
+
+            int pIndex = partition(arr, low, high);
+
+            qs(arr, low, pIndex - 1);
+            qs(arr, pIndex + 1, high);
+        }
+    }
+
+    vector<int> quickSort(vector<int>& nums) {
+
+        int n = nums.size();
+
+        qs(nums, 0, n - 1);
+
+        return nums;
+    }
+};
+
+
+Key Takeaway:
+
+"Choose a pivot → Partition the array around it → Place the pivot at its correct position → Recursively sort the left and right subarrays."
